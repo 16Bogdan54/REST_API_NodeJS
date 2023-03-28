@@ -8,10 +8,10 @@ export default class CustomLogger {
     }
 
     public static warn = (args: unknown) => {
-        console.log(chalk.yellow(`[${new Date().toLocaleDateString()}] [INFO]`), chalk.yellowBright(args));
+        console.log(chalk.yellow(`[${new Date().toLocaleDateString()}] [WARN]`), chalk.yellowBright(args));
     }
 
     public static error = (args: unknown) => {
-        console.log(chalk.red(`[${new Date().toLocaleDateString()}] [INFO]`), chalk.redBright(args));
+        console.log(chalk.red(`[${new Date().toLocaleDateString()}] [ERROR]`), chalk.redBright(args));
     }
 }
