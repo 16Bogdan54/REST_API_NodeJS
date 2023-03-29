@@ -1,6 +1,6 @@
 import express from 'express';
 import AuthorController from '../controllers/AuthorController';
-import { Schemas, ValidateJoi } from 'middleware/Joi';
+import { Schemas, ValidateJoi } from '../middleware/Joi';
 
 export const authorRouter = express.Router();
 

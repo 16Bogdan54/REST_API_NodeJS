@@ -4,6 +4,9 @@ import mongoose from "mongoose";
 import {config} from '../config/config'
 import CustomLogger from "../library/Logging";
 
+import {authorRouter} from "../routes/Author";
+import {bookRouter} from "../routes/Book";
+
 const router = express();
 
 // connect to database
@@ -41,8 +44,8 @@ const startServer = () => {
         next()
     });
 
-    router.use('/authors', );
-    router.use('/books', bookRoutes);
+    router.use('/authors', authorRouter);
+    router.use('/books', bookRouter);
 
     router.get('/ping', (req, res, next) => res.status(200).json({message: 'pong'}))
 
