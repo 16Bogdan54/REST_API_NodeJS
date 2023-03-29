@@ -41,6 +41,8 @@ const startServer = () => {
         next()
     });
 
+    router.use('/authors', );
+    router.use('/books', bookRoutes);
 
     router.get('/ping', (req, res, next) => res.status(200).json({message: 'pong'}))
 
