@@ -1,5 +1,4 @@
 import mongoose, {Document, Schema} from 'mongoose'
-import {required} from "joi";
 
 export interface IBook {
     title: string;
