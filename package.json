@@ -9,6 +9,9 @@
   },
   "author": "",
   "license": "ISC",
+  "engines": {
+    "node": ">=14 <15"
+  },
   "dependencies": {
     "chalk": "^4.1.2",
     "dotenv": "^16.0.3",
