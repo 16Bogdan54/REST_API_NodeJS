@@ -1,6 +1,6 @@
 import { Request, Response} from "express";
 import mongoose from "mongoose";
-import AuthorModel from "models/AuthorModel";
+import AuthorModel from "../models/AuthorModel";
 
 const create = (req: Request, res: Response) => {
     const {name} = req.body;
