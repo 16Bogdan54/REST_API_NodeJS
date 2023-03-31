@@ -1,4 +1,4 @@
-import {Request, Response} from "express";
+import {Errback, NextFunction, Request, Response} from "express";
 const express = require('express');
 const http = require('http');
 const mongoose = require('mongoose');
@@ -15,10 +15,10 @@ mongoose.connect(config.mongo.url)
         startServer()
         CustomLogger.info("connecting to database")
     })
-    .catch(error => CustomLogger.error(error))
+    .catch((error:Error) => CustomLogger.error(error))
 
 const startServer = () => {
-    router.use((req, res, next) => {
+    router.use((req:Request, res:Response, next:NextFunction) => {
         CustomLogger.info(`Incoming -> Method: [${req.method}] - URL: [${req.url}] - IP: [${req.socket.remoteAddress}]`)
 
         res.on('finish', () => {
@@ -32,7 +32,7 @@ const startServer = () => {
     router.use(express.json())
 
     // rules of API
-    router.use((req, res, next) => {
+    router.use((req:Request, res:Response, next:NextFunction) => {
         res.header('Access-Control-Allow-Origin', '*');
         res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
 

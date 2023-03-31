@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express'
 import {ObjectSchema} from "joi";
-import {IAuthor} from "models/AuthorModel";
-import {IBook} from "models/BookModel";
+import {IAuthor} from "../models/AuthorModel";
+import {IBook} from "../models/BookModel";
 
 const Joi = require('joi');
 const Logging = require('../library/Logging');
@@ -12,7 +12,7 @@ const Logging = require('../library/Logging');
 
 // const ObjectSchema:ObjectSchema = require('joi')
 
-export const ValidateJoi = (schema: ObjectSchema) => {
+const ValidateJoi = (schema: ObjectSchema) => {
     return async (req: Request, res: Response, next: NextFunction) => {
         try {
             await schema.validateAsync(req.body);
@@ -26,7 +26,7 @@ export const ValidateJoi = (schema: ObjectSchema) => {
     };
 };
 
-export const Schemas = {
+const Schemas = {
     author: {
         create: Joi.object<IAuthor>({
             name: Joi.string().required()
@@ -50,3 +50,8 @@ export const Schemas = {
         })
     }
 };
+
+module.exports = {
+    ValidateJoi,
+    Schemas
+}
