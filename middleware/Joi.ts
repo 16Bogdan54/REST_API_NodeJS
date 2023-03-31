@@ -1,8 +1,16 @@
-import Joi, { ObjectSchema } from 'joi';
-import { NextFunction, Request, Response } from 'express';
-import { IAuthor } from '../models/AuthorModel';
-import { IBook } from '../models/BookModel';
-import Logging from '../library/Logging';
+import { NextFunction, Request, Response } from 'express'
+import {ObjectSchema} from "joi";
+import {IAuthor} from "models/AuthorModel";
+import {IBook} from "models/BookModel";
+
+const Joi = require('joi');
+const Logging = require('../library/Logging');
+
+// const { NextFunction, Request, Response } = require('express');
+// const IAuthor = require('../models/AuthorModel');
+// const { IBook } = require('../models/BookModel');
+
+// const ObjectSchema:ObjectSchema = require('joi')
 
 export const ValidateJoi = (schema: ObjectSchema) => {
     return async (req: Request, res: Response, next: NextFunction) => {

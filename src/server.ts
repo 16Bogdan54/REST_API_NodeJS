@@ -1,12 +1,12 @@
-import express from 'express';
-import http from 'http'
-import mongoose from "mongoose";
-import {config} from '../config/config'
-import CustomLogger from "../library/Logging";
+import {Request, Response} from "express";
+const express = require('express');
+const http = require('http');
+const mongoose = require('mongoose');
+const { config } = require('../config/config');
+const CustomLogger = require('../library/Logging');
 
-import {authorRouter} from "../routes/Author";
-import {bookRouter} from "../routes/Book";
-
+const { authorRouter } = require('../routes/Author');
+const { bookRouter } = require('../routes/Book');
 const router = express();
 
 // connect to database
@@ -47,10 +47,10 @@ const startServer = () => {
     router.use('/authors', authorRouter);
     router.use('/books', bookRouter);
 
-    router.get('/ping', (req, res, next) => res.status(200).json({message: 'pong'}))
+    router.get('/ping', (req:Request, res:Response) => res.status(200).json({message: 'pong'}))
 
-    router.use((req, res, next) => {
-        const error = new Error('not found');
+    router.use((req:Request, res:Response) => {
+        const error:Error = new Error('not found');
 
         CustomLogger.error(error)
 

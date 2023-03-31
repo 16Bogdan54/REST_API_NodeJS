@@ -1,6 +1,6 @@
-import express from 'express';
-import BookController from '../controllers/BookController';
-import { Schemas, ValidateJoi } from '../middleware/Joi';
+const express = require('express');
+const BookController = require('../controllers/BookController');
+const { Schemas, ValidateJoi } = require('../middleware/Joi');
 
 export const bookRouter = express.Router();
 

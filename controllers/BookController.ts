@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
-import mongoose from 'mongoose';
-import BookModel from '../models/BookModel';
+import * as Mongoose from "mongoose";
+const mongoose:Mongoose = require('mongoose');
+const BookModel = require('../models/BookModel');
 
 const create = (req: Request, res: Response) => {
     const { author, title } = req.body;

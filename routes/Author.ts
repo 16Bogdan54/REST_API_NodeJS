@@ -1,6 +1,6 @@
-import express from 'express';
-import AuthorController from '../controllers/AuthorController';
-import { Schemas, ValidateJoi } from '../middleware/Joi';
+const express = require('express');
+const AuthorController = require('../controllers/AuthorController');
+const { Schemas, ValidateJoi } = require('../middleware/Joi');
 
 export const authorRouter = express.Router();
 
