@@ -1,7 +1,7 @@
 import {NextFunction, Request, Response} from "express";
 import express from "express";
 import http from 'http'
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 import {config} from '../config/config'
 import CustomLogger from '../library/Logging'
 import {authorRouter} from "../routes/Author";
@@ -50,11 +50,11 @@ const startServer = () => {
     app.get('/ping', (req:Request, res:Response) => res.status(200).json({message: 'pong'}))
 
     app.use((req:Request, res:Response) => {
-        const error:Error = new Error('not found');
+        const err = new Error('not found');
 
-        CustomLogger.error(error)
+        CustomLogger.error(err)
 
-        return res.status(404).json({message: error.message})
+        return res.status(404).json({message: err.message})
     })
 
     http.createServer(app).listen(config.server.port, () => CustomLogger.info(`Server is running on port ${config.server.port}`))
