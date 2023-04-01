@@ -1,13 +1,13 @@
-import {Errback, NextFunction, Request, Response} from "express";
-const express = require('express');
-const http = require('http');
-const mongoose = require('mongoose');
-const { config } = require('../config/config');
-const CustomLogger = require('../library/Logging');
+import {NextFunction, Request, Response} from "express";
+import express from "express";
+import http from 'http'
+import mongoose from 'mongoose';
+import {config} from '../config/config'
+import CustomLogger from '../library/Logging'
+import {authorRouter} from "../routes/Author";
+import {bookRouter} from "../routes/Book";
 
-const { authorRouter } = require('../routes/Author');
-const { bookRouter } = require('../routes/Book');
-const router = express();
+const app = express();
 
 // connect to database
 mongoose.connect(config.mongo.url)
@@ -18,7 +18,7 @@ mongoose.connect(config.mongo.url)
     .catch((error:Error) => CustomLogger.error(error))
 
 const startServer = () => {
-    router.use((req:Request, res:Response, next:NextFunction) => {
+    app.use((req:Request, res:Response, next:NextFunction) => {
         CustomLogger.info(`Incoming -> Method: [${req.method}] - URL: [${req.url}] - IP: [${req.socket.remoteAddress}]`)
 
         res.on('finish', () => {
@@ -28,11 +28,11 @@ const startServer = () => {
         next()
     });
 
-    router.use(express.urlencoded({extended: true}));
-    router.use(express.json())
+    app.use(express.urlencoded({extended: true}));
+    app.use(express.json())
 
     // rules of API
-    router.use((req:Request, res:Response, next:NextFunction) => {
+    app.use((req:Request, res:Response, next:NextFunction) => {
         res.header('Access-Control-Allow-Origin', '*');
         res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
 
@@ -44,12 +44,12 @@ const startServer = () => {
         next()
     });
 
-    router.use('/authors', authorRouter);
-    router.use('/books', bookRouter);
+    app.use('/authors', authorRouter);
+    app.use('/books', bookRouter);
 
-    router.get('/ping', (req:Request, res:Response) => res.status(200).json({message: 'pong'}))
+    app.get('/ping', (req:Request, res:Response) => res.status(200).json({message: 'pong'}))
 
-    router.use((req:Request, res:Response) => {
+    app.use((req:Request, res:Response) => {
         const error:Error = new Error('not found');
 
         CustomLogger.error(error)
@@ -57,5 +57,5 @@ const startServer = () => {
         return res.status(404).json({message: error.message})
     })
 
-    http.createServer(router).listen(config.server.port, () => CustomLogger.info(`Server is running on port ${config.server.port}`))
+    http.createServer(app).listen(config.server.port, () => CustomLogger.info(`Server is running on port ${config.server.port}`))
 };

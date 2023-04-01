@@ -1,8 +1,9 @@
 import { Request, Response} from "express";
-import {IAuthor, IAuthorModel} from "../models/AuthorModel";
-import {Model, MongooseOptions} from "mongoose";
-const mongoose = require("mongoose");
-const AuthorModel = require('../models/AuthorModel')
+// import {IAuthorModel} from "../models/AuthorModel";
+// import {IAuthor, IAuthorModel} from "../models/AuthorModel";
+// import {Model, MongooseOptions} from "mongoose";
+import mongoose from "mongoose";
+import AuthorModel from "../models/AuthorModel";
 
 const create = (req: Request, res: Response) => {
     const {name} = req.body;
@@ -14,7 +15,7 @@ const create = (req: Request, res: Response) => {
 
     return author
         .save()
-        .then((author: IAuthor) => res.status(201).json({author}))
+        .then((author) => res.status(201).json({author}))
         .catch((error: Error) => res.status(500).json({error}))
 }
 
@@ -23,13 +24,13 @@ const readById = (req: Request, res: Response) => {
 
     return AuthorModel
         .findById(id)
-        .then((author: IAuthor | null) => (author ? res.status(200).json({ author }) : res.status(404).json({ message: 'not found' })))
+        .then((author) => (author ? res.status(200).json({ author }) : res.status(404).json({ message: 'not found' })))
         .catch((error: Error) => res.status(500).json({ error }));
 }
 
 const readAll = (req: Request, res: Response) => {
     return AuthorModel.find()
-        .then((authors: IAuthor[]) => res.status(200).json({ authors }))
+        .then((authors) => res.status(200).json({ authors }))
         .catch((error: Error) => res.status(500).json({ error }));
 }
 
@@ -46,7 +47,7 @@ const update = (req: Request, res: Response) => {
 
                 return author
                     .save()
-                    .then((author: IAuthor) => res.status(201).json({ author }))
+                    .then((author) => res.status(201).json({ author }))
                     .catch((error: Error) => res.status(500).json({ error }));
             } else {
                 return res.status(404).json({ message: 'not found' });
@@ -60,7 +61,7 @@ const deleteById = (req: Request, res: Response) => {
 
     return AuthorModel
         .findByIdAndDelete(id)
-        .then((author: IAuthor | null) => (author ? res.status(201).json({ author, message: 'Deleted' }) : res.status(404).json({ message: 'not found' })))
+        .then((author) => (author ? res.status(201).json({ author, message: 'Deleted' }) : res.status(404).json({ message: 'not found' })))
         .catch((error: Error) => res.status(500).json({ error }));
 }
 

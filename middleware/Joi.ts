@@ -3,8 +3,8 @@ import {ObjectSchema} from "joi";
 import {IAuthor} from "../models/AuthorModel";
 import {IBook} from "../models/BookModel";
 
-const Joi = require('joi');
-const Logging = require('../library/Logging');
+import Joi from "joi"
+import CustomLogger from "../library/Logging";
 
 // const { NextFunction, Request, Response } = require('express');
 // const IAuthor = require('../models/AuthorModel');
@@ -12,21 +12,21 @@ const Logging = require('../library/Logging');
 
 // const ObjectSchema:ObjectSchema = require('joi')
 
-const ValidateJoi = (schema: ObjectSchema) => {
+export const ValidateJoi = (schema: ObjectSchema) => {
     return async (req: Request, res: Response, next: NextFunction) => {
         try {
             await schema.validateAsync(req.body);
 
             next();
         } catch (error) {
-            Logging.error(error);
+            CustomLogger.error(error);
 
             return res.status(422).json({ error });
         }
     };
 };
 
-const Schemas = {
+export const Schemas = {
     author: {
         create: Joi.object<IAuthor>({
             name: Joi.string().required()
@@ -50,8 +50,3 @@ const Schemas = {
         })
     }
 };
-
-module.exports = {
-    ValidateJoi,
-    Schemas
-}

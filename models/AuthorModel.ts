@@ -1,6 +1,5 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 import {Schema} from "mongoose";
-
 
 export interface IAuthor {
     name: string
@@ -13,6 +12,4 @@ const AuthorSchema: Schema = new Schema<IAuthorModel>(
     {versionKey: false}
 )
 
-const AuthorModel = mongoose.model('Author', AuthorSchema);
-
-module.exports = AuthorModel
+export default mongoose.model('Author', AuthorSchema);

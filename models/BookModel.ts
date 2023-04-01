@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from "mongoose";
 import {Schema, Document} from "mongoose";
 
 export interface IBook {
@@ -19,6 +19,4 @@ const BookSchema: Schema = new Schema<IBookModel>(
     }
 )
 
-const BookModel = mongoose.model('Book', BookSchema)
-
-module.exports = BookModel
+export default mongoose.model('Book', BookSchema)
