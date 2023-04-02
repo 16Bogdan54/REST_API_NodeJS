@@ -3,7 +3,7 @@ import express from "express";
 import http from 'http'
 import mongoose from "mongoose";
 import {config} from '../config/config'
-import CustomLogger from '../library/Logging'
+import {CustomLogger} from '../library/Logging'
 import {authorRouter} from "../routes/Author";
 import {bookRouter} from "../routes/Book";
 
